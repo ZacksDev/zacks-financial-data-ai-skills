@@ -24,13 +24,13 @@ scripts/
 
 ## One source of truth
 
-Each `SKILL.md` is served word for word by the MCP tool `get_zacks_playbook`. The gateway copies these files in at build time from a release tag. So the body must work in every client, not only Claude. Steps that need charts, artifacts or code have to stay conditional ("if your client can render charts..."). Each file's frontmatter `metadata` holds the playbook catalog fields (`playbook_id`, `title`, `use_when`, `tools_used`, `quota_note`, `updated`). The `## Guardrails`, `## Sources and citation` and `## Feedback` sections are returned as their own fields.
+Each `SKILL.md` is served word for word by the MCP tool `get_zacks_playbook`. The gateway image build downloads this repo (`main`, or a pinned tag) and bundles these files, so a merged change ships on the next gateway deploy. So the body must work in every client, not only Claude. Steps that need charts, artifacts or code have to stay conditional ("if your client can render charts..."). Each file's frontmatter `metadata` holds the playbook catalog fields (`playbook_id`, `title`, `use_when`, `tools_used`, `quota_note`, `updated`). The `## Guardrails`, `## Sources and citation` and `## Feedback` sections are returned as their own fields.
 
 ## Releasing
 
 1. Edit the skill and update `metadata.updated`.
 2. Raise `version` in `plugin.json`, run `scripts/check.sh`, then merge to the tracked branch. The Claude directory scans and publishes the new version.
-3. Tag `vX.Y.Z`, then sync the gateway's bundled copy (`scripts/sync_playbooks.py` in the MCP server repo) and deploy it.
+3. Redeploy the gateway. Its image build downloads this repo (`main` by default, or `SKILLS_REF=vX.Y.Z` to pin a tag), so `get_zacks_playbook` serves the new text. There is no copy to update by hand.
 
 ## License
 
