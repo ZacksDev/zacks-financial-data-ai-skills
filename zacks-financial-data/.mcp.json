@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "zacks-financial-data": {
+      "type": "http",
+      "url": "https://mcp.zacksdata.com/"
+    }
+  }
+}

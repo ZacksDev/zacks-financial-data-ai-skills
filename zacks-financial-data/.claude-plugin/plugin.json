@@ -1,0 +1,21 @@
+{
+  "name": "zacks-financial-data",
+  "displayName": "Zacks Financial Data",
+  "version": "1.0.0",
+  "description": "Zacks Investment Research workflows for Claude: market extremes (overbought and oversold stocks) and portfolio reviews, built on the Zacks Financial Data connector.",
+  "author": {
+    "name": "Zacks Investment Research",
+    "email": "mcpsupport@zacksdata.com",
+    "url": "https://www.zacks.com"
+  },
+  "homepage": "https://ai.zacksdata.com",
+  "license": "MIT",
+  "keywords": [
+    "finance",
+    "stocks",
+    "zacks",
+    "portfolio",
+    "screening"
+  ],
+  "privacyPolicyUrl": "https://zacksdata.com/privacy/"
+}
