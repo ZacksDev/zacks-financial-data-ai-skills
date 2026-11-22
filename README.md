@@ -5,7 +5,7 @@ The plugin adds Zacks Investment Research workflows to Claude (claude.ai chat, C
 - **market-extremes**: finds overbought and oversold US stocks with four Zacks screens, then charts and tables them. Uses 40 of the 100 daily screening rows.
 - **portfolio-report**: reviews a portfolio or watchlist. It covers return attribution, sector and industry weights, a comparison with benchmark ETFs (SPY and QQQ by default), Zacks Rank changes with the estimate revisions and Street actions behind them, Zacks' industry outlook for the largest exposures, and Zacks' view on the holdings that changed.
 - **portfolio-rebalance**: proposes Zacks-ranked replacement candidates and new weights for flagged holdings (weak Rank, recent downgrade, bottom-quartile industry or over a concentration cap), and shows the portfolio before and after. Uses one custom screen per flagged holding.
-- **get-market-indices-benchmarks**: maps each market index to the ETF that stands in for it (S&P 500 is SPY, Nasdaq-100 is QQQ, and so on), names the closest ETF where there is only a proxy, and says when no ETF represents an index. SPY and QQQ are the default benchmarks.
+- **get-market-indices-benchmarks**: maps a named index to its stand-in ETF (exact stand-ins, closest-ETF proxies, and indices with no stand-in), with SPY and QQQ as default benchmarks. Uses no screening rows.
 
 ## How to use it
 
