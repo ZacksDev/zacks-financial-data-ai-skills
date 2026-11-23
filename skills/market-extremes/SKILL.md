@@ -6,8 +6,8 @@ metadata:
   title: "Market extremes: overbought and oversold stocks"
   use_when: User asks for market extremes, overbought or oversold, stretched or washed-out stocks
   tools_used: run_custom_screen
-  quota_note: Uses 40 of the 100 daily screening rows
-  updated: "2026-11-03"
+  quota_note: Uses up to 40 distinct tickers of the plan's daily ticker budget (4 screens of 10 rows); tickers already used today are free
+  updated: "2026-11-23"
 ---
 
 # Market extremes
@@ -30,9 +30,9 @@ The four screens are the four corners of that grid.
    | Pullback near highs | 14020 >= 80, 14035 <= -8 | `14035:asc` |
    | Bounce off lows | 14020 <= 20, 14035 >= 8 | `14035:desc` |
 
-2. Do not page further or rerun a screen. The four calls use 40 of the user's 100 daily screening rows. Make extra calls only if the user asks for them.
+2. Do not page further or rerun a screen. The user's plan has a daily budget of distinct tickers, and the four calls can use up to 40 of it (tickers already used today are free). Make extra calls only if the user asks for them.
 3. For each bucket, note `total_count` (how many stocks matched in all) and `as_of`. `total_count` 0 means no stock matched. `null` means the screen is unavailable right now: say so, and never report it as "no matches".
-4. If a response says the screening quota is used up, tell the user the `quota.reset_at` time and stop.
+4. If a response carries a `plan_notice` (the result starts with "Plan limit reached:"), the plan's daily ticker limit was hit. Show `plan_notice.message` to the user exactly as returned, show any rows that did come back, and say how many rows were not returned (`plan_notice.rows_not_returned`), for example "showing 3 of 81 matches; 7 rows not returned because of the plan limit". It is not an empty result: never say "no matches" for what the notice cut. Do not retry, or run the remaining screens, before `plan_notice.resets_at`.
 
 ## Output
 

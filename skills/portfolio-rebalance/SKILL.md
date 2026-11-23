@@ -6,9 +6,9 @@ metadata:
   title: "Portfolio rebalance: flagged holdings, Zacks-ranked candidates and proposed weights"
   use_when: User asks to rebalance, reposition, upgrade or find replacements for holdings in a portfolio
   tools_used: compare_stocks, get_zacks_trending_tickers, run_custom_screen, get_custom_screen_criteria, get_industry_commentary, get_zacks_research, get_zacks_commentary
-  quota_note: Uses screening rows for one custom screen per flagged holding; plus peers, comparison and one research report per flagged holding
+  quota_note: Uses roughly 10-20 new distinct tickers of the plan's daily ticker budget per flagged holding (screen rows and peers), plus up to 10 for the trending check; holdings already reviewed today are free. Calls - one custom screen, peers, comparison and one research report per flagged holding
   version: "0.3.0"
-  updated: "2026-11-22"
+  updated: "2026-11-23"
 ---
 
 # Portfolio rebalance
