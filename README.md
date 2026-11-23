@@ -2,10 +2,12 @@
 
 The plugin adds Zacks Investment Research workflows to Claude (claude.ai chat, Cowork and Claude Code), on top of the Zacks Financial Data connector:
 
-- **market-extremes**: finds overbought and oversold US stocks with four Zacks screens, then charts and tables them. Uses 40 of the 100 daily screening rows.
+- **market-extremes**: finds overbought and oversold US stocks with four Zacks screens, then charts and tables them. Uses up to 40 distinct tickers of the plan's daily ticker budget.
 - **portfolio-report**: reviews a portfolio or watchlist. It covers return attribution, sector and industry weights, a comparison with benchmark ETFs (SPY and QQQ by default), Zacks Rank changes with the estimate revisions and Street actions behind them, Zacks' industry outlook for the largest exposures, and Zacks' view on the holdings that changed.
 - **portfolio-rebalance**: proposes Zacks-ranked replacement candidates and new weights for flagged holdings (weak Rank, recent downgrade, bottom-quartile industry or over a concentration cap), and shows the portfolio before and after. Uses one custom screen per flagged holding.
-- **get-market-indices-benchmarks**: maps a named index to its stand-in ETF (exact stand-ins, closest-ETF proxies, and indices with no stand-in), with SPY and QQQ as default benchmarks. Uses no screening rows.
+- **get-market-indices-benchmarks**: maps a named index to its stand-in ETF (exact stand-ins, closest-ETF proxies, and indices with no stand-in), with SPY and QQQ as default benchmarks. Uses one distinct ticker per benchmark ETF.
+
+Each Zacks plan has a daily budget of distinct tickers; calling the same ticker again that day is free. The API enforces it: when the budget runs out it still answers HTTP 200, with a `plan_notice` naming what was not returned and when the budget resets.
 
 ## How to use it
 
