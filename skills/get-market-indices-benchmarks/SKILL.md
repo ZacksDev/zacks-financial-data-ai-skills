@@ -6,7 +6,6 @@ metadata:
   title: "Market indices and benchmarks: the ETF that stands in for each index"
   use_when: An index is named or needed, for a benchmark, a market comparison or how the market did
   tools_used: get_zacks_metrics
-  quota_note: Uses one distinct ticker of the plan's daily ticker budget per benchmark ETF (2 by default; repeats are free); one get_zacks_metrics call per benchmark ETF
   version: "0.1.0"
   updated: "2026-11-23"
 ---

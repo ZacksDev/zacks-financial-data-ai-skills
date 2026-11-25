@@ -6,7 +6,6 @@ metadata:
   title: "Market extremes: overbought and oversold stocks"
   use_when: User asks for market extremes, overbought or oversold, stretched or washed-out stocks
   tools_used: run_custom_screen
-  quota_note: Uses up to 40 distinct tickers of the plan's daily ticker budget (4 screens of 10 rows); tickers already used today are free
   updated: "2026-11-23"
 ---
 

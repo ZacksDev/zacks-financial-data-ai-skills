@@ -23,7 +23,7 @@ The plugin itself stores nothing. Your requests (tickers, screen criteria and po
 This repository is the plugin. It is also the only home of the playbook text: the Zacks MCP gateway downloads `main` when its image is built, and serves each `skills/*/SKILL.md` through its `get_zacks_playbook` tool to every assistant, not only Claude. So:
 
 - Keep each skill's body client-neutral. Make chart, artifact and code steps conditional ("if your client can render charts...").
-- Keep the frontmatter `metadata` fields (`playbook_id`, `title`, `use_when`, `tools_used`, `quota_note`, `updated`) and the `## Guardrails`, `## Sources and citation` and `## Feedback` sections, which the tool returns as separate fields. If one is missing, the gateway build fails.
+- Keep the frontmatter `metadata` fields (`playbook_id`, `title`, `use_when`, `tools_used`, `updated`) and the `## Guardrails`, `## Sources and citation` and `## Feedback` sections, which the tool returns as separate fields. If one is missing, the gateway build fails.
 - To release, raise `version` in `.claude-plugin/plugin.json` and merge to `main`. The Claude directory publishes the plugin, and the next gateway deploy serves the new text.
 - To check a change, run `claude plugin validate --profile directory .`.
 
