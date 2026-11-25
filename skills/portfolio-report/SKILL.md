@@ -6,7 +6,6 @@ metadata:
   title: "Portfolio report: attribution, sectors, benchmarks, Rank changes and the Zacks view"
   use_when: User asks to analyze, review, grade or report on a portfolio, holdings or watchlist
   tools_used: compare_stocks, get_zacks_metrics, get_etf_holdings, get_industry_commentary, get_zacks_research, get_wall_st_rating, get_zacks_commentary, get_real_time_news
-  quota_note: Uses about one distinct ticker of the plan's daily ticker budget per holding, plus the benchmark ETFs (2 by default); repeat calls on the same tickers are free. Calls - one compare_stocks call per 5 holdings (plus ERV and BR calls for Rank changes), 2 benchmark calls, 2-3 industry calls and up to 5 holdings with research, rating and commentary calls
   version: "1.3.0"
   updated: "2026-11-23"
 ---

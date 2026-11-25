@@ -6,7 +6,6 @@ metadata:
   title: "Getting started: a guided walkthrough of what you can do with Zacks"
   use_when: User asks what Zacks or this connector can do, how to start, says they are new to Zacks, asks whether a use case works, or asks to see more
   tools_used: compare_stocks, get_zacks_metrics, get_zacks_research, get_zacks_commentary, get_real_time_news, get_zacks_trending_tickers, list_zacks_predefined_screens, run_zacks_screen, run_custom_screen, get_income_statement, get_balance_sheet, get_cash_flow, get_industry_commentary, get_wall_st_rating, get_etf_holdings
-  quota_note: Each step is one or two calls on at most five tickers
   version: "1.0.0"
   updated: "2026-11-24"
 ---
