@@ -5,8 +5,8 @@ metadata:
   playbook_id: getting_started
   title: "Getting started: a guided tour of what you can do with Zacks"
   use_when: User asks what Zacks or this connector can do, why use it, how to start, says they are new to Zacks, asks for a tour, asks whether a use case works, or asks to see more
-  tools_used: compare_stocks, get_zacks_metrics, get_zacks_research, get_zacks_commentary, get_real_time_news, get_zacks_trending_tickers, list_zacks_predefined_screens, run_zacks_screen, run_custom_screen, get_income_statement, get_balance_sheet, get_cash_flow, get_industry_commentary, get_wall_st_rating, get_etf_holdings, show_zacks_rank_card, show_zacks_trending
-  version: "2.2.0"
+  tools_used: compare_stocks, get_zacks_metrics, get_zacks_research, get_zacks_commentary, get_real_time_news, get_zacks_trending_tickers, list_zacks_predefined_screens, run_zacks_screen, run_custom_screen, get_income_statement, get_balance_sheet, get_cash_flow, get_industry_commentary, get_wall_st_rating, get_etf_holdings
+  version: "2.2.1"
   updated: "2026-11-26"
 ---
 
@@ -40,10 +40,9 @@ Every question and every set of next moves is offered as choices.
 
 Use the first of these that is available, so the person clicks instead of typing:
 
-1. **A Zacks tour widget.** If a `show_zacks_tour` tool is available, call it: it draws the role table, tour map and next-move buttons itself, and each button sends the choice as the person's next message.
-2. **The client's own choice tool.** If you have a tool that asks the person a multiple-choice question or shows buttons, use it for every set of choices.
-3. **A widget you draw.** If you can render interactive HTML in the chat, draw the visual with buttons that send the choice as the next message.
-4. **Last resort:** a numbered list under the visual; accept a number as the answer ("reply 1-4").
+1. **The client's own choice tool.** If you have a tool that asks the person a multiple-choice question or shows buttons, use it for every set of choices.
+2. **A widget you draw.** If you can render interactive HTML in the chat, draw the visual with buttons that send the choice as the next message.
+3. **Last resort:** a numbered list under the visual; accept a number as the answer ("reply 1-4").
 - Each choice is a short bold label plus a few words on what they will see: "**What SCHD holds**: top 10 as a bar chart".
 - Three or four choices, never more. The last is always "Something else".
 
@@ -134,10 +133,10 @@ Each stop: what the person sees, how to produce it, and the "why it matters" ang
 
 | Stop | They see | How | Why it matters (angle) |
 |---|---|---|---|
-| 1 Size up a stock | Rank card | `show_zacks_rank_card`, plus `get_zacks_metrics` for the numbers | One clear rating, 1 Strong Buy to 5 Strong Sell, updated daily |
+| 1 Size up a stock | Rank card | `get_zacks_metrics` | One clear rating, 1 Strong Buy to 5 Strong Sell, updated daily |
 | 2 The reasoning | Short summary card of the analyst report, dated | `get_zacks_research` | Not just a score: the analyst's reasons, for and against |
 | 3 Compare | Side-by-side table, two or three stocks | `compare_stocks` | The same yardstick on every stock, so a comparison is fair |
-| 4 What's trending and why | Trending table, then the newest article on the stock they pick | `show_zacks_trending`, `get_real_time_news` | See what other investors are looking at, and the story behind it |
+| 4 What's trending and why | Trending table, then the newest article on the stock they pick | `get_zacks_trending_tickers`, `get_real_time_news` | See what other investors are looking at, and the story behind it |
 | 5 Wall Street vs Zacks | One stacked bar of buy / hold / sell next to the Zacks Rank | `get_wall_st_rating` | Two independent views side by side; note where they disagree |
 
 ### Analyst
@@ -156,9 +155,9 @@ Exactly one visual per stop, placed first (rule zero). A visual replaces explana
 
 | Result | Show it as |
 |---|---|
-| One stock's Zacks Rank | Rank card (`show_zacks_rank_card`). It returns no data, so also call `get_zacks_metrics` when you need the numbers |
+| One stock's Zacks Rank | Rank card, from `get_zacks_metrics` |
 | Rank and style scores, several stocks | Table: Rank 1-5 as a colored chip with the number in it, style scores as letters |
-| Trending / popular | Trending table (`show_zacks_trending`, up to 10 rows). It returns no data rows; call `get_zacks_trending_tickers` if you need the numbers |
+| Trending / popular | Trending table (up to 10 rows), from `get_zacks_trending_tickers` |
 | Estimate moves | Table with up/down arrows and % change |
 | Fund contents, exposure | Horizontal bar chart, top 10 |
 | Wall Street ratings | One stacked bar: buy / hold / sell counts, dated |
