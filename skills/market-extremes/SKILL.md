@@ -6,7 +6,7 @@ metadata:
   title: "Market extremes: overbought and oversold stocks"
   use_when: User asks for market extremes, overbought or oversold, stretched or washed-out stocks
   tools_used: run_custom_screen
-  updated: "2026-11-23"
+  updated: "2026-11-27"
 ---
 
 # Market extremes

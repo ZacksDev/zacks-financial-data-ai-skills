@@ -7,7 +7,7 @@ metadata:
   use_when: User asks to rebalance, reposition, upgrade or find replacements for holdings in a portfolio
   tools_used: compare_stocks, get_zacks_trending_tickers, run_custom_screen, get_custom_screen_criteria, get_industry_commentary, get_zacks_research, get_zacks_commentary
   version: "0.3.0"
-  updated: "2026-11-23"
+  updated: "2026-11-27"
 ---
 
 # Portfolio rebalance

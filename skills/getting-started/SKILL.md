@@ -5,9 +5,9 @@ metadata:
   playbook_id: getting_started
   title: "Getting started: a guided tour of what you can do with Zacks"
   use_when: User asks what Zacks or this connector can do, why use it, how to start, says they are new to Zacks, asks for a tour, asks whether a use case works, or asks to see more
-  tools_used: compare_stocks, get_zacks_metrics, get_zacks_research, get_zacks_commentary, get_real_time_news, get_zacks_trending_tickers, list_zacks_predefined_screens, run_zacks_screen, run_custom_screen, get_income_statement, get_balance_sheet, get_cash_flow, get_industry_commentary, get_wall_st_rating, get_etf_holdings
+  tools_used: compare_stocks, get_zacks_metrics, get_zacks_research, get_zacks_commentary, get_real_time_news, get_zacks_trending_tickers, list_zacks_predefined_screens, run_zacks_screen, run_custom_screen, get_income_statement, get_balance_sheet, get_cash_flow, get_industry_commentary, get_wall_st_rating, get_etf_holdings, get_zacks_playbook
   version: "2.2.1"
-  updated: "2026-11-26"
+  updated: "2026-11-27"
 ---
 
 # Getting started: a guided tour
@@ -66,6 +66,30 @@ Use the first of these that is available, so the person clicks instead of typing
 4. **Recap after stop 5.** Show the recap card (see "Recap card"), then keep offering next moves. The tour has no end state.
 
 The person can leave the route at any time: jump to a stop, change tickers, switch role, or ask for something off the map. Follow them, mark what was shown, and offer "**Back to the tour**" as a choice.
+
+## Show the ready-made workflows
+
+Zacks ships ready-made workflows (playbooks) for the things investors ask for most. The walkthrough uses them as its best material: a new user should see one working on their own stocks within the first two or three steps.
+
+1. **Look up what exists.** Once per conversation, before offering goals, call `get_zacks_playbook` with no argument. The list it returns is the authority on which workflows are available today. Never offer a workflow that is not in that list, and never rely on the examples below when the list says otherwise.
+2. **Turn the list into goals.** Read each entry's title and "use when" text and match it to the person's role and to what they said they care about. When you offer three goals, make at least one of them a ready-made workflow whenever one fits. Describe it in plain words as something the person gets ("a full review of your portfolio", "a shortlist of stock ideas by strategy"), never by its id and never as a "playbook".
+3. **Include workflows this text does not mention.** If the list holds an entry that is not in the table below, offer it the same way, from its title and "use when" text. New workflows appear in the walkthrough as soon as they are listed.
+4. **Run a small first slice.** When the person picks a workflow, call `get_zacks_playbook` with that entry's id and follow its instructions, but keep the first pass walkthrough-sized: up to five holdings or tickers, one strategy, one comparison. Its guardrails, labelling and citation rules apply in full even to the small slice.
+5. **Say what it was and what the full version adds.** One line after the result, for example: "That was a small version of the portfolio review. The full one adds what drove returns, the industries you lean on and Zacks' view on the holdings that changed." Then offer to run it in full, alongside the usual next moves.
+6. **"Does this use case work?"** Check the list before answering. If an entry covers it, say yes in one line and offer to show it on their own stocks. If none covers it but the Zacks tools can do it step by step, say so and do one step. If neither, say plainly that Zacks does not cover it.
+
+Typical matches, to use only when the entry is in the list:
+
+| Role | Workflows that usually fit |
+|---|---|
+| Financial or wealth advisor | Portfolio review; rebalance proposals; an ETF portfolio to build or adjust |
+| Portfolio manager | An ETF portfolio to build or adjust; market extremes; how the market, sectors and industries performed |
+| Individual investor | Stock ideas by strategy; a review of their own holdings; market extremes |
+| Investment analyst | Stock ideas by strategy; sector and industry comparison; the best-ranked stocks in an industry or theme |
+
+The entry that maps indices, sectors and industries to ETFs is a helper for the others. Do not offer it by name; offer what it answers: "how did the market and each sector do?".
+
+The walkthrough itself (`getting_started`) is never offered as one of the goals.
 
 ## Format of a stop
 

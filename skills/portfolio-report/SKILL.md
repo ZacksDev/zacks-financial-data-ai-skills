@@ -7,7 +7,7 @@ metadata:
   use_when: User asks to analyze, review, grade or report on a portfolio, holdings or watchlist
   tools_used: compare_stocks, get_zacks_metrics, get_etf_holdings, get_industry_commentary, get_zacks_research, get_wall_st_rating, get_zacks_commentary, get_real_time_news
   version: "1.3.0"
-  updated: "2026-11-23"
+  updated: "2026-11-27"
 ---
 
 # Portfolio report
