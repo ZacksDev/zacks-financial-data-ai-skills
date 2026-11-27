@@ -7,12 +7,12 @@ metadata:
   use_when: User asks to rebalance, reposition, upgrade or find replacements for holdings in a portfolio
   tools_used: compare_stocks, get_zacks_trending_tickers, run_custom_screen, get_custom_screen_criteria, get_industry_commentary, get_zacks_research, get_zacks_commentary
   version: "0.3.0"
-  updated: "2026-11-23"
+  updated: "2026-11-27"
 ---
 
 # Portfolio rebalance
 
-Turn a reviewed portfolio into a set of rebalance proposals for the advisor or investor to decide on: which holdings are flagged and why, which Zacks-covered candidates could replace them, and what the portfolio would look like after. Everything here is a proposal built from Zacks data and labelled as such; suitability, taxes, timing and execution belong to the advisor.
+Turn a reviewed portfolio into a set of rebalance proposals for the advisor or investor to decide on: which holdings are flagged and why, which Zacks-covered candidates could replace them, and what the portfolio would look like after. Everything here is a proposal built from Zacks data and labelled as such; suitability, taxes, timing and execution belong to the advisor. To change exposure with ETFs rather than replace individual holdings, use the ETF portfolio construction playbook.
 
 ## Inputs
 

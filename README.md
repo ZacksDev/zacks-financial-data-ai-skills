@@ -2,11 +2,13 @@
 
 The plugin adds Zacks Investment Research workflows to Claude (claude.ai chat, Cowork and Claude Code), on top of the Zacks Financial Data connector:
 
-- **getting-started**: a guided walkthrough for new users, by investor goal (advisor, portfolio manager, individual investor, analyst). It runs one live step at a time on the user's own tickers and has no end state. Uses one or two calls per step, on at most five tickers.
+- **getting-started**: a guided walkthrough for new users, by investor goal (advisor, portfolio manager, individual investor, analyst). It runs one live step at a time on the user's own tickers and has no end state. Uses one or two calls per step, on at most five tickers. It lists the ready-made workflows first and offers them as goals, so a new workflow shows up in the tour as soon as it ships.
 - **market-extremes**: finds overbought and oversold US stocks with four Zacks screens, then charts and tables them. Uses up to 40 distinct tickers of the plan's daily ticker budget.
 - **portfolio-report**: reviews a portfolio or watchlist. It covers return attribution, sector and industry weights, a comparison with benchmark ETFs (SPY and QQQ by default), Zacks Rank changes with the estimate revisions and Street actions behind them, Zacks' industry outlook for the largest exposures, and Zacks' view on the holdings that changed.
 - **portfolio-rebalance**: proposes Zacks-ranked replacement candidates and new weights for flagged holdings (weak Rank, recent downgrade, bottom-quartile industry or over a concentration cap), and shows the portfolio before and after. Uses one custom screen per flagged holding.
-- **get-market-indices-benchmarks**: maps a named index to its stand-in ETF (exact stand-ins, closest-ETF proxies, and indices with no stand-in), with SPY and QQQ as default benchmarks. Uses one distinct ticker per benchmark ETF.
+- **market-index-etf-standins**: the ETF that stands in for each market index, each Zacks sector (an 11-ETF sector scoreboard) and each leading industry (exact stand-ins, closest-ETF proxies, and indices, sectors or industries with no stand-in), with SPY and QQQ as default benchmarks. Uses one distinct ticker per stand-in ETF.
+- **etf-portfolio-construction**: builds or re-weights an ETF-only portfolio in sleeves (stocks, bonds, sectors, industries, regions and styles), so every later change is one ETF weight, with proposed weights and a look-through of the holdings.
+- **stock-ideas**: a short list of stock ideas by strategy (hidden gems, fresh upgrades, momentum leaders, blue-chip income, contrarian rebounds, Zacks-versus-Street disagreements, theme and industry leaders), each with the reason it surfaced, the signal that agrees or disagrees, and what Zacks has written about it.
 
 Each Zacks plan has a daily budget of distinct tickers; calling the same ticker again that day is free. The API enforces it: when the budget runs out it still answers HTTP 200, with a `plan_notice` naming what was not returned and when the budget resets.
 
