@@ -2,7 +2,7 @@
   "name": "zacks-financial-data",
   "displayName": "Zacks Financial Data",
   "version": "1.4.0",
-  "description": "Zacks Investment Research workflows for Claude: a getting-started walkthrough for new users, market extremes (overbought and oversold stocks), portfolio reviews, portfolio rebalance proposals and ETF stand-ins for indices, sectors and industries, built on the Zacks Financial Data connector.",
+  "description": "Zacks Investment Research workflows for Claude: a getting-started walkthrough for new users, market extremes (overbought and oversold stocks), portfolio reviews, portfolio rebalance proposals, ETF portfolio construction, stock ideas and ETF stand-ins for indices, sectors and industries, built on the Zacks Financial Data connector.",
   "author": {
     "name": "Zacks Investment Research",
     "email": "mcpsupport@zacksdata.com",

@@ -6,6 +6,7 @@ metadata:
   title: "ETF stand-ins: the ETF that replaces each index, sector and industry"
   use_when: "An index, a sector or an industry is named or needed: a benchmark, a market, sector or industry comparison, how the market or a sector did, top sectors, or a screen that names a sector or an industry"
   tools_used: get_zacks_metrics, run_custom_screen
+  version: "1.4.0"
   updated: "2026-11-27"
 ---
 

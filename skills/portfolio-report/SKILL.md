@@ -48,7 +48,7 @@ Build a portfolio review from Zacks data: what drove the returns, where the mone
 - The user's file contributes tickers and weights only. Any other column in it is never shown, compared against or used as a baseline.
 - Label every number you computed (contributions, sector weights, averages, relative returns, concentration shares, differences from a benchmark) as "calculated from Zacks data". Show Zacks' own fields as Zacks figures.
 - Never show index data. Every index means its ETF from the index-to-ETF mapping (S&P 500 is SPY, Nasdaq-100 is QQQ, Russell 2000 is IWM), and say so.
-- Present the narrative as Zacks' opinion, attributed and dated. This is not investment advice. For an advisor, every item is a talking point for the client conversation, not a trade instruction. Do not propose trades, replacements or new weights here; offer the portfolio-rebalance skill instead.
+- Present the narrative as Zacks' opinion, attributed and dated. This is not investment advice. For an advisor, every item is a talking point for the client conversation, not a trade instruction. Do not propose trades, replacements or new weights here; offer the portfolio-rebalance skill instead, or, for an ETF-level allocation, the ETF portfolio construction playbook.
 - Holdings that are not Zacks-covered equities are listed as not covered, never dropped silently.
 
 ## Sources and citation

@@ -12,7 +12,7 @@ metadata:
 
 # Portfolio rebalance
 
-Turn a reviewed portfolio into a set of rebalance proposals for the advisor or investor to decide on: which holdings are flagged and why, which Zacks-covered candidates could replace them, and what the portfolio would look like after. Everything here is a proposal built from Zacks data and labelled as such; suitability, taxes, timing and execution belong to the advisor.
+Turn a reviewed portfolio into a set of rebalance proposals for the advisor or investor to decide on: which holdings are flagged and why, which Zacks-covered candidates could replace them, and what the portfolio would look like after. Everything here is a proposal built from Zacks data and labelled as such; suitability, taxes, timing and execution belong to the advisor. To change exposure with ETFs rather than replace individual holdings, use the ETF portfolio construction playbook.
 
 ## Inputs
 

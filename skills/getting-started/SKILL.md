@@ -5,8 +5,8 @@ metadata:
   playbook_id: getting_started
   title: "Getting started: a guided tour of what you can do with Zacks"
   use_when: User asks what Zacks or this connector can do, why use it, how to start, says they are new to Zacks, asks for a tour, asks whether a use case works, or asks to see more
-  tools_used: compare_stocks, get_zacks_metrics, get_zacks_research, get_zacks_commentary, get_real_time_news, get_zacks_trending_tickers, list_zacks_predefined_screens, run_zacks_screen, run_custom_screen, get_income_statement, get_balance_sheet, get_cash_flow, get_industry_commentary, get_wall_st_rating, get_etf_holdings, get_zacks_playbook
-  version: "2.2.1"
+  tools_used: compare_stocks, get_zacks_metrics, get_zacks_research, get_zacks_commentary, get_real_time_news, get_zacks_trending_tickers, list_zacks_predefined_screens, run_zacks_screen, run_custom_screen, get_income_statement, get_balance_sheet, get_cash_flow, get_industry_commentary, get_wall_st_rating, get_etf_holdings, get_zacks_playbook, show_zacks_rank_card, show_zacks_trending
+  version: "2.3.0"
   updated: "2026-11-27"
 ---
 
@@ -40,9 +40,10 @@ Every question and every set of next moves is offered as choices.
 
 Use the first of these that is available, so the person clicks instead of typing:
 
-1. **The client's own choice tool.** If you have a tool that asks the person a multiple-choice question or shows buttons, use it for every set of choices.
-2. **A widget you draw.** If you can render interactive HTML in the chat, draw the visual with buttons that send the choice as the next message.
-3. **Last resort:** a numbered list under the visual; accept a number as the answer ("reply 1-4").
+1. **A Zacks tour widget.** If a `show_zacks_tour` tool is available, call it: it draws the role table, tour map and next-move buttons itself, and each button sends the choice as the person's next message.
+2. **The client's own choice tool.** If you have a tool that asks the person a multiple-choice question or shows buttons, use it for every set of choices.
+3. **A widget you draw.** If you can render interactive HTML in the chat, draw the visual with buttons that send the choice as the next message.
+4. **Last resort:** a numbered list under the visual; accept a number as the answer ("reply 1-4").
 - Each choice is a short bold label plus a few words on what they will see: "**What SCHD holds**: top 10 as a bar chart".
 - Three or four choices, never more. The last is always "Something else".
 
@@ -61,35 +62,11 @@ Use the first of these that is available, so the person clicks instead of typing
    Live Zacks research on your own stocks, five short stops. Which is closest to you?
    ```
 
-2. **Tour map + tickers (one turn).** Start with the tour map table for their role (see "Tour map"). Under it, ask for three to five tickers, with "**Use an example**" as a choice; for the example pick well-known large companies and one ETF.
+2. **Tour map + tickers (one turn).** Before this turn, look up the ready-made workflows once (see "Ready-made workflows"); it is a silent step. Start with the tour map table for their role (see "Tour map"). Under it, ask for three to five tickers, with "**Use an example**" as a choice; for the example pick well-known large companies and one ETF.
 3. **Run the stops.** One stop per turn, in the format below. Each stop is one or two tool calls, at most five tickers.
 4. **Recap after stop 5.** Show the recap card (see "Recap card"), then keep offering next moves. The tour has no end state.
 
 The person can leave the route at any time: jump to a stop, change tickers, switch role, or ask for something off the map. Follow them, mark what was shown, and offer "**Back to the tour**" as a choice.
-
-## Show the ready-made workflows
-
-Zacks ships ready-made workflows (playbooks) for the things investors ask for most. The walkthrough uses them as its best material: a new user should see one working on their own stocks within the first two or three steps.
-
-1. **Look up what exists.** Once per conversation, before offering goals, call `get_zacks_playbook` with no argument. The list it returns is the authority on which workflows are available today. Never offer a workflow that is not in that list, and never rely on the examples below when the list says otherwise.
-2. **Turn the list into goals.** Read each entry's title and "use when" text and match it to the person's role and to what they said they care about. When you offer three goals, make at least one of them a ready-made workflow whenever one fits. Describe it in plain words as something the person gets ("a full review of your portfolio", "a shortlist of stock ideas by strategy"), never by its id and never as a "playbook".
-3. **Include workflows this text does not mention.** If the list holds an entry that is not in the table below, offer it the same way, from its title and "use when" text. New workflows appear in the walkthrough as soon as they are listed.
-4. **Run a small first slice.** When the person picks a workflow, call `get_zacks_playbook` with that entry's id and follow its instructions, but keep the first pass walkthrough-sized: up to five holdings or tickers, one strategy, one comparison. Its guardrails, labelling and citation rules apply in full even to the small slice.
-5. **Say what it was and what the full version adds.** One line after the result, for example: "That was a small version of the portfolio review. The full one adds what drove returns, the industries you lean on and Zacks' view on the holdings that changed." Then offer to run it in full, alongside the usual next moves.
-6. **"Does this use case work?"** Check the list before answering. If an entry covers it, say yes in one line and offer to show it on their own stocks. If none covers it but the Zacks tools can do it step by step, say so and do one step. If neither, say plainly that Zacks does not cover it.
-
-Typical matches, to use only when the entry is in the list:
-
-| Role | Workflows that usually fit |
-|---|---|
-| Financial or wealth advisor | Portfolio review; rebalance proposals; an ETF portfolio to build or adjust |
-| Portfolio manager | An ETF portfolio to build or adjust; market extremes; how the market, sectors and industries performed |
-| Individual investor | Stock ideas by strategy; a review of their own holdings; market extremes |
-| Investment analyst | Stock ideas by strategy; sector and industry comparison; the best-ranked stocks in an industry or theme |
-
-The entry that maps indices, sectors and industries to ETFs is a helper for the others. Do not offer it by name; offer what it answers: "how did the market and each sector do?".
-
-The walkthrough itself (`getting_started`) is never offered as one of the goals.
 
 ## Format of a stop
 
@@ -124,10 +101,10 @@ Show it at the start, whenever the person picks "Tour map", and inside the recap
 | ○ | 4 Inside a fund | Top holdings of an ETF |
 | ○ | 5 Meeting-ready report | A full portfolio report preview |
 
-Also possible: stock ideas · industry outlook · financials · what's trending
+Also possible: rebalance proposals · an ETF portfolio · stock ideas · industry outlook
 ```
 
-✓ shown, ▶ current, ○ not yet. "Also possible" lists goal areas from the other roles that this person has not seen; move an item out of it once it has been demonstrated. Each line is a choice the person can pick.
+✓ shown, ▶ current, ○ not yet. "Also possible" lists the ready-made workflows that fit this role first (see "Ready-made workflows"), then goal areas from the other roles that this person has not seen; move an item out of it once it has been demonstrated. Each line is a choice the person can pick.
 
 ## The tours
 
@@ -157,10 +134,10 @@ Each stop: what the person sees, how to produce it, and the "why it matters" ang
 
 | Stop | They see | How | Why it matters (angle) |
 |---|---|---|---|
-| 1 Size up a stock | Rank card | `get_zacks_metrics` | One clear rating, 1 Strong Buy to 5 Strong Sell, updated daily |
+| 1 Size up a stock | Rank card | `show_zacks_rank_card`, plus `get_zacks_metrics` for the numbers | One clear rating, 1 Strong Buy to 5 Strong Sell, updated daily |
 | 2 The reasoning | Short summary card of the analyst report, dated | `get_zacks_research` | Not just a score: the analyst's reasons, for and against |
 | 3 Compare | Side-by-side table, two or three stocks | `compare_stocks` | The same yardstick on every stock, so a comparison is fair |
-| 4 What's trending and why | Trending table, then the newest article on the stock they pick | `get_zacks_trending_tickers`, `get_real_time_news` | See what other investors are looking at, and the story behind it |
+| 4 What's trending and why | Trending table, then the newest article on the stock they pick | `show_zacks_trending`, `get_real_time_news` | See what other investors are looking at, and the story behind it |
 | 5 Wall Street vs Zacks | One stacked bar of buy / hold / sell next to the Zacks Rank | `get_wall_st_rating` | Two independent views side by side; note where they disagree |
 
 ### Analyst
@@ -173,15 +150,33 @@ Each stop: what the person sees, how to produce it, and the "why it matters" ang
 | 4 Industry view | Industry position and dated commentary summary | `get_industry_commentary` | Zacks analysts' view of the industry behind the company |
 | 5 Your own screen | Result table with the criteria in the header | `run_custom_screen` | Turn a thesis into a list in one request |
 
+## Ready-made workflows
+
+Zacks ships ready-made workflows (playbooks) for the things investors ask for most. The tour shows them off without changing its shape: still five stops, still one visual first in every turn.
+
+1. **Look them up once.** Before the first tour map, call `get_zacks_playbook` with no argument. The list it returns is the authority on which workflows exist today. Never offer one that is not in the list. Do not mention the lookup: the reply still starts with the tour map.
+2. **Put them on the map.** In the "Also possible" line of the tour map and under "Still to explore" in the recap, list the workflows that fit the person's role first. Name each in plain words as something the person gets ("an ETF portfolio to build or adjust", "stock ideas by strategy"), never by its id and never as a "playbook". Use the table below when the entry is in the list. An entry in the list that this text does not mention is offered the same way, worded from its title and "use when" text, so new workflows appear in the tour as soon as they are listed.
+3. **Preview, then hand off.** When the person picks one, call `get_zacks_playbook` with that entry's id and run a small slice of it in the format of a stop: one visual first, up to five tickers, one strategy or one comparison, the "why it matters" line, then choices. Title it as an extra, for example "Extra · Stock ideas", not as one of the five stops. Choice 1 is "**Run it in full**" and one choice is "**Back to the tour**". The workflow's guardrails, labels and citation rules apply to the preview too.
+4. **In full means the workflow's own format.** If they pick "Run it in full", follow that playbook's instructions and output completely. The 40-word limit does not apply to it. Offer "**Back to the tour**" afterwards.
+
+| Role | Ready-made workflows to offer, when listed |
+|---|---|
+| Advisor | Portfolio report (already stop 5); rebalance proposals; an ETF portfolio to build or adjust |
+| Portfolio manager | Market extremes (already stop 4); an ETF portfolio to build or adjust; stock ideas by strategy; how each sector performed |
+| Individual investor | Stock ideas by strategy; a review of their own holdings; market extremes |
+| Analyst | Stock ideas by strategy; how sectors and industries performed |
+
+The entry that maps indices, sectors and industries to ETFs is a helper for the others: never offer it by name, offer what it answers ("how each sector performed"). The tour itself (`getting_started`) is never offered as a choice.
+
 ## How to show results
 
 Exactly one visual per stop, placed first (rule zero). A visual replaces explanation: never describe in words what it already shows.
 
 | Result | Show it as |
 |---|---|
-| One stock's Zacks Rank | Rank card, from `get_zacks_metrics` |
+| One stock's Zacks Rank | Rank card (`show_zacks_rank_card`). It returns no data, so also call `get_zacks_metrics` when you need the numbers |
 | Rank and style scores, several stocks | Table: Rank 1-5 as a colored chip with the number in it, style scores as letters |
-| Trending / popular | Trending table (up to 10 rows), from `get_zacks_trending_tickers` |
+| Trending / popular | Trending table (`show_zacks_trending`, up to 10 rows). It returns no data rows; call `get_zacks_trending_tickers` if you need the numbers |
 | Estimate moves | Table with up/down arrows and % change |
 | Fund contents, exposure | Horizontal bar chart, top 10 |
 | Wall Street ratings | One stacked bar: buy / hold / sell counts, dated |
@@ -221,7 +216,7 @@ Two or three lines, each tied to something they saw on their own tickers.
 4. Something else
 ```
 
-The recap is a checkpoint, not an ending. Follow whatever they pick, and keep the map up to date.
+"Still to explore" leads with a ready-made workflow the person has not seen yet. The recap is a checkpoint, not an ending. Follow whatever they pick, and keep the map up to date.
 
 ## "Why should I use this?"
 
@@ -239,7 +234,7 @@ Never make a performance claim (returns, track record, "beats the market") and n
 2. **Verdict directly under it:** yes, partly, or no.
 3. **If partly or no, say exactly what is missing** and offer the closest thing that works, as a choice.
 
-Base the verdict on the Zacks tool descriptions, not on memory. If they do not settle it, try one small call and report what came back. Never promise a capability you have not confirmed. Then offer "**Back to the tour**".
+Base the verdict on the list of ready-made workflows and the Zacks tool descriptions, not on memory. If a ready-made workflow covers the use case, the live example is a preview of that workflow. If they do not settle it, try one small call and report what came back. Never promise a capability you have not confirmed. Then offer "**Back to the tour**".
 
 ## Worked example
 
@@ -308,7 +303,7 @@ Base the verdict on the Zacks tool descriptions, not on memory. If they do not s
 
 - Use only Zacks MCP tools as the data source. Do not search the web or fill gaps from memory. If the person wants something Zacks does not cover, say so plainly and ask before looking anywhere else.
 - Any number you derive (a count, a total, an average, an exposure) is your own calculation. Label it "calculated from Zacks data" in the chart title or table header, never as a Zacks figure.
-- Never show index data. When an index is named or a benchmark is needed, use the `get_market_indices_benchmarks` playbook and say which fund stands in for the index.
+- Never show index data. When an index, a sector or an industry is named or a benchmark is needed, use the `get_market_indices_benchmarks` playbook and say which fund stands in for it.
 - Present research and commentary as Zacks' opinion, dated. Nothing in the tour is investment advice.
 - No performance or superiority claims, as above.
 - If a tool returns a notice instead of data, show the notice as the tool instructs, mark the stop as not shown, and move to a stop that does not need that tool.
