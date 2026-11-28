@@ -6,8 +6,8 @@ metadata:
   title: "Getting started: a guided tour of what you can do with Zacks"
   use_when: User asks what Zacks or this connector can do, why use it, how to start, says they are new to Zacks, asks for a tour, asks whether a use case works, or asks to see more
   tools_used: compare_stocks, get_zacks_metrics, get_zacks_research, get_zacks_commentary, get_real_time_news, get_zacks_trending_tickers, list_zacks_predefined_screens, run_zacks_screen, run_custom_screen, get_income_statement, get_balance_sheet, get_cash_flow, get_industry_commentary, get_wall_st_rating, get_etf_holdings, get_zacks_playbook, show_zacks_rank_card, show_zacks_trending
-  version: "2.3.0"
-  updated: "2026-11-27"
+  version: "2.3.1"
+  updated: "2026-11-28"
 ---
 
 # Getting started: a guided tour
@@ -161,7 +161,7 @@ Zacks ships ready-made workflows (playbooks) for the things investors ask for mo
 
 | Role | Ready-made workflows to offer, when listed |
 |---|---|
-| Advisor | Portfolio report (already stop 5); rebalance proposals; an ETF portfolio to build or adjust |
+| Advisor | Portfolio report (already stop 5); rebalance proposals; an ETF portfolio to build or adjust; a weekly market newsletter for clients |
 | Portfolio manager | Market extremes (already stop 4); an ETF portfolio to build or adjust; stock ideas by strategy; how each sector performed |
 | Individual investor | Stock ideas by strategy; a review of their own holdings; market extremes |
 | Analyst | Stock ideas by strategy; how sectors and industries performed |

@@ -1,13 +1,13 @@
 ---
 name: market-index-etf-standins
-description: The ETF that replaces each market index, each Zacks sector and each leading industry. Use whenever an index, a sector or an industry is named or needed with Zacks data - for a benchmark, a market or sector comparison, "how did the market / technology / semiconductors / banks do", "top sectors this month", or a screen that names a sector or an industry.
+description: The ETF that replaces each market index, each Zacks sector, each leading industry and other markets (international markets, bonds, gold, silver, oil and the dollar). Use whenever an index, a sector, an industry or one of those markets is named or needed with Zacks data - for a benchmark, a market or sector comparison, "how did the market / technology / semiconductors / banks / the DAX / bonds / gold do", "top sectors this month", or a screen that names a sector or an industry.
 metadata:
   playbook_id: get_market_indices_benchmarks
-  title: "ETF stand-ins: the ETF that replaces each index, sector and industry"
-  use_when: "An index, a sector or an industry is named or needed: a benchmark, a market, sector or industry comparison, how the market or a sector did, top sectors, or a screen that names a sector or an industry"
+  title: "ETF stand-ins: the ETF that replaces each index, sector, industry and other market"
+  use_when: "An index, a sector, an industry, an international market, a bond market, gold, silver, oil or the dollar is named or needed: a benchmark, a market, sector or industry comparison, how the market, a sector, a country or bonds did, top sectors, or a screen that names a sector or an industry"
   tools_used: get_zacks_metrics, run_custom_screen
-  version: "1.4.0"
-  updated: "2026-11-27"
+  version: "1.5.0"
+  updated: "2026-11-28"
 ---
 
 # ETF stand-ins for indices, sectors and industries
@@ -123,11 +123,58 @@ All proxies: "the closest ETF to <industry>". The right-hand column lists the Za
 
 An industry not in these tables: look for an ETF with a screen (`run_custom_screen`, `universe: "etf"`, on Investment Strategy), take the largest long-only match and call it "the closest ETF". If nothing matches, say that no ETF represents it. Never pick an ETF from memory.
 
+## 4. Other markets: international, bonds, metals, oil and the dollar
+
+All proxies: write "the closest ETF to <market>", never "via". The "Index users may name" column is for recognising the request only: never show a figure for that index.
+
+**International markets** (US-listed funds priced in US dollars, so every figure includes the currency move):
+
+| Market | Closest ETF | Index users may name | Note |
+|---|---|---|---|
+| Developed markets outside the US | EFA | MSCI EAFE | |
+| Europe | VGK | STOXX Europe 600 | Broad Europe fund, not the same basket |
+| Germany | EWG | DAX | |
+| United Kingdom | EWU | FTSE 100 | |
+| France | EWQ | CAC 40 | |
+| Japan | EWJ | Nikkei 225 | |
+| China | MCHI | Shanghai Composite | Also holds Chinese shares listed outside mainland China |
+| Hong Kong | EWH | Hang Seng | |
+| South Korea | EWY | Kospi | |
+| Emerging markets | EEM | MSCI Emerging Markets | |
+| Mexico | EWW | IPC | |
+| Brazil | EWZ | Ibovespa | |
+
+**Bonds** (the figure is the fund's price change, never a yield):
+
+| Market | Closest ETF | Alternate | Note |
+|---|---|---|---|
+| US bonds, broad | AGG | | Users may name the US Aggregate |
+| Global bonds | BNDW | BNDX | BNDX is international bonds outside the US |
+| US Treasuries, 1 to 3 years | SHY | | |
+| US Treasuries, 7 to 10 years | IEF | | Use for "the 10-year Treasury" |
+| US Treasuries, 20 years and longer | TLT | | |
+| Inflation-protected Treasuries | TIP | | |
+| High-yield bonds | JNK | HYG | |
+| Emerging-market bonds in US dollars | EMB | | |
+
+**Metals, oil and the dollar** (the figure is the fund's price change, never a spot price):
+
+| Market | Closest ETF | Note |
+|---|---|---|
+| Gold | GLD | Not the price per ounce |
+| Silver | SLV | Not the price per ounce |
+| Crude oil | USO | Not the price per barrel |
+| US dollar | UUP | Not a dollar index level |
+
+**No stand-in:** a volatility index. Say that no ETF represents it.
+
+**Global scoreboard** (for "how did world markets do", "markets this week", "stocks, bonds and gold"): SPY, QQQ, DIA, IWM, VGK, EWJ, MCHI, EEM, EWW, EWZ, AGG, BNDW, JNK, EMB, GLD, SLV. Send at most ten tickers per screen call.
+
 ## Steps
 
-1. Map each index, sector or industry the user names (or the default benchmarks) to its ETF with the tables above. A theme (AI, quantum, drones) is a thematic stock list first; use the ETF only for its performance.
+1. Map each index, sector, industry or other market the user names (or the default benchmarks) to its ETF with the tables above. A theme (AI, quantum, drones) is a thematic stock list first; use the ETF only for its performance.
 2. For one to three ETFs, call `get_zacks_metrics` for each and use the ETF figures.
-3. For a comparison across many sectors or industries ("top sectors this month", "which industries led this year"), run one ETF screen with `run_custom_screen` (`universe: "etf"`) with those ETF tickers as the starting universe and the performance columns the question needs (1 week, 1 month, 3 months, 6 months, YTD, 1 year), sorted on the period asked about. Use the sector scoreboard list for sectors. If the call returns fewer rows than the tickers sent, fetch the rest with `offset` before ranking.
+3. For a comparison across many sectors or industries ("top sectors this month", "which industries led this year"), run one ETF screen with `run_custom_screen` (`universe: "etf"`) with those ETF tickers as the starting universe and the performance columns the question needs (1 week, 1 month, 3 months, 6 months, YTD, 1 year), sorted on the period asked about. Use the sector scoreboard list for sectors and the global scoreboard list for a question about world markets, bonds and metals together. If the call returns fewer rows than the tickers sent, fetch the rest with `offset` before ranking.
 4. When a stock screen or an industry question names a sector or an industry, add the stand-in ETF's performance next to the screen results, and use the "Closest Zacks industries" column for the screen's Industry condition and for `get_industry_commentary`.
 5. In the answer, name the ETF next to what the user asked about: "S&P 500 (via SPY)" for an exact stand-in; "the closest ETF to semiconductors is SMH" for a proxy, with the note from the table. Where there is no stand-in, say so and do not substitute another ETF.
 
@@ -135,6 +182,9 @@ An industry not in these tables: look for an ETF with a screen (`run_custom_scre
 
 - Never show or quote index levels, index returns, or sector or industry returns as such. Every such figure is the ETF's figure, and say so.
 - A proxy ETF is never described as the index, the sector or the industry itself. Only the eight exact index stand-ins may be written as "via".
+- A bond ETF figure is the fund's price change, never a yield or a basis-point move. A gold, silver or oil ETF figure is the fund's price change, never a price per ounce or per barrel. The dollar ETF figure is never a dollar index level.
+- US-listed international ETFs are priced in US dollars: never call their figures local-currency returns, and never present them as the return of the country's own index.
+- Never show the level of a volatility index.
 - A ranking of sectors or industries is a ranking of their stand-in ETFs: say "ranked by the performance of each stand-in ETF". The Zacks Industry Rank is a different measure (earnings-estimate based) and is never mixed into it.
 - Use the sector and industry names above and the Zacks sector and industry names only; do not reference any other classification standard.
 - Use only Zacks MCP tools as the data source. Do not search the web or fill gaps from memory.
